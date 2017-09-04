@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hr.dao.IdTestMapper" >
+  <resultMap id="BaseResultMap" type="com.hr.model.IdTest" >
+    <id column="id" property="id" javaType="long" />
+    <result column="system_name" property="systemName" javaType="java.lang.String" />
+    <result column="current_no" property="currentNo" javaType="long" />
+    <result column="step_size" property="stepSize" javaType="long" />
+    <result column="update_time" property="updateTime" javaType="java.util.Date" />
+  </resultMap>
+    <update id="updateBySystemName">
+        UPDATE id_test
+        set current_no = #{currentNo}, update_time = now()
+        where system_name = #{systemName} and current_no = #{origNo}
+    </update>
+
+    <select id="getBySystemName" resultMap="BaseResultMap">
+    SELECT * FROM id_test
+    WHERE system_name = #{systemName}
+  </select>
+    <select id="getAllSystemName" resultType="java.lang.String">
+      SELECT system_name from id_test
+    </select>
+  <select id="getAll" resultMap="BaseResultMap">
+    SELECT * from id_test
+  </select>
+
+
+</mapper>
