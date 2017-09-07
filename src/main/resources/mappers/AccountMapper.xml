@@ -13,5 +13,15 @@
     INSERT INTO account(account_id, name, mobile, create_time)
     VALUES (#{accountId}, #{name}, #{mobile}, now())
   </insert>
+  <update id="updateNameByAccountId">
+    UPDATE account
+    set name = #{name}
+    where account_id = #{accountId}
+  </update>
+  <select id="selectByAccountId" resultMap="BaseResultMap">
+      SELECT  *
+      from account
+      where account_id = #{accountId}
+    </select>
 
 </mapper>
