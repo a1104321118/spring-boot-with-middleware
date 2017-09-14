@@ -13,21 +13,21 @@
 
 
     <!-- LOGSTASH -->
-    <!--<appender name="LOGSTASH" class="com.cwbase.logback.RedisAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+    <appender name="LOGSTASH" class="com.cwbase.logback.RedisAppender">
+        <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
-        </filter>
-        <source>ddsc-marketing</source>
+        </filter>-->
+        <source>spring-boot-demo</source>
         <type>test</type>
-        <host>redis</host>
+        <host>192.168.3.57</host>
         <key>logstash</key>
-        <tags>ddsc-marketing</tags>
+        <tags>spring-boot-demo</tags>
         <mdc>true</mdc>
         <location>true</location>
         <callerStackIndex>0</callerStackIndex>
-    </appender>-->
+    </appender>
 
     <!--打印完整日志-->
     <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -60,7 +60,7 @@
     <root level="info">
         <appender-ref ref="dailyRollingFileAppender"/>
         <appender-ref ref="errorFileAppender"/>
-        <!--<appender-ref ref="LOGSTASH"/>-->
+        <appender-ref ref="LOGSTASH"/>
         <appender-ref ref="consoleAppender"/>
     </root>
 

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hr on 2017/09/07.
@@ -39,15 +40,37 @@ public class LogController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public void test(){
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public void testInfo(){
+
+        long start = System.currentTimeMillis();
+
         Account account = new Account();
         account.setAccountId(100000000000001L);
         account.setName("测试");
         account.setCreateTime(new Date());
         account.setMobile("12345679800");
 
-        logger.info("test, account={}", account);
-        logger.error("error, account={}", account);
+        logger.info("test, result={},耗时={}ms", account, System.currentTimeMillis()-start);
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public void testError(){
+
+        long start = System.currentTimeMillis();
+
+        Account account = new Account();
+        account.setAccountId(100000000000001L);
+        account.setName("测试");
+        account.setCreateTime(new Date());
+        account.setMobile("12345679800");
+
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        logger.error("error, result={},耗时={}ms", account, System.currentTimeMillis()-start);
     }
 }
