@@ -71,6 +71,6 @@ public class LogController {
             e.printStackTrace();
         }
 
-        logger.error("error, result={},耗时={}ms", account, System.currentTimeMillis()-start);
+        logger.error("#1[error], result=[{}],耗时=[{}]ms", account, System.currentTimeMillis()-start);
     }
 }
