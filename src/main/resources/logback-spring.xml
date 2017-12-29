@@ -4,7 +4,6 @@
     <property name="LOG_FILE" value="spring-boot-demo.log" />
 
 
-
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
@@ -21,7 +20,7 @@
         </filter>-->
         <source>spring-boot-demo</source>
         <type>test</type>
-        <host>192.168.3.57</host>
+        <host>localhost</host>
         <key>logstash</key>
         <tags>spring-boot-demo</tags>
         <mdc>true</mdc>
