@@ -82,6 +82,7 @@ public class RedisLockServiceImpl implements RedisLockService{
                 }
             }
         }
+        jedis.close();
         return false;
 
     }

@@ -113,8 +113,9 @@ public class RedisConf extends CachingConfigurerSupport {
     @Bean
     public JedisPool redisPoolFactory() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-        jedisPoolConfig.setMaxIdle(100);
-        jedisPoolConfig.setMaxWaitMillis(10000);
+        jedisPoolConfig.setMaxIdle(10);//最大空闲连接数
+        jedisPoolConfig.setMaxWaitMillis(-1);//没获得连接的等待的最大时间,-1为永久等待
+        jedisPoolConfig.setMaxTotal(100);//最大连接数
 
         JedisPool jedisPool = new JedisPool(jedisPoolConfig, "127.0.0.1", 6379, 0, null);
 
