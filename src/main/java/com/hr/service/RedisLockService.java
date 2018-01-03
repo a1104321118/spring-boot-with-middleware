@@ -8,5 +8,7 @@ public interface RedisLockService {
 
     boolean tryLock(String key);
 
+    boolean tryLockSafe(String key);
+
     void unlock(String key);
 }

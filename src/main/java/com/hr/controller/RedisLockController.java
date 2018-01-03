@@ -22,16 +22,12 @@ public class RedisLockController {
     private RedisLockService redisLockService;
 
     @RequestMapping("/test")
-    public String test(){
+    public String test() throws InterruptedException {
         String key = "test";
 
         try {
-            if(redisLockService.tryLock(key)){
-                try {
-                    TimeUnit.SECONDS.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            if(redisLockService.tryLockSafe(key)){
+                TimeUnit.SECONDS.sleep(5);
                 return "SUCC";
             }else {
                 return "FAIL";

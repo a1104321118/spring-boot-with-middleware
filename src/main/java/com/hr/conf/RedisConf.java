@@ -17,9 +17,12 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import redis.clients.jedis.*;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,9 +81,9 @@ public class RedisConf extends CachingConfigurerSupport {
         //设置缓存过期时间
         // rcm.setDefaultExpiration(60);//秒
         //设置value的过期时间
-        Map<String, Long> map = new HashMap();
-        map.put("test", 600L);
-        rcm.setExpires(map);
+//        Map<String, Long> map = new HashMap();
+//        map.put("test", 600L);
+//        rcm.setExpires(map);
         return rcm;
     }
 
@@ -102,4 +105,20 @@ public class RedisConf extends CachingConfigurerSupport {
         template.afterPropertiesSet();
         return template;
     }
+
+    /**
+     * jedis 池配置
+     * @return
+     */
+    @Bean
+    public JedisPool redisPoolFactory() {
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxIdle(100);
+        jedisPoolConfig.setMaxWaitMillis(10000);
+
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig, "127.0.0.1", 6379, 0, null);
+
+        return jedisPool;
+    }
+
 }
