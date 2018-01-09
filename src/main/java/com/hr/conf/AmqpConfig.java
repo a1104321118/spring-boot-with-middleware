@@ -38,7 +38,6 @@ public class AmqpConfig implements RabbitListenerConfigurer {
         factory.setConnectionFactory(connectionFactory);
         // factory.setPrefetchCount(5);
         factory.setChannelTransacted(true);
-
         factory.setAcknowledgeMode(AcknowledgeMode.AUTO);
         return factory;
     }
