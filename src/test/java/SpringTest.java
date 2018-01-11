@@ -1,6 +1,7 @@
 import com.google.common.base.Charsets;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
+import com.google.common.util.concurrent.RateLimiter;
 import com.hr.SpringBootDemoApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by huangrui on 2018/1/9.
@@ -18,6 +20,9 @@ import java.util.*;
 @WebAppConfiguration
 public class SpringTest {
 
+    /**
+     * 布隆过滤器
+     */
     @Test
     public void bloomFilterTest(){
 
@@ -50,5 +55,20 @@ public class SpringTest {
 
         System.out.println(right);
         System.out.println(wrong);
+    }
+
+    /**
+     * 令牌桶 限流
+     */
+    @Test
+    public void test2(){
+        RateLimiter limiter = RateLimiter.create(10);//每秒放入10个令牌
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 100; i++) {
+            limiter.acquire();//申请令牌，如果暂时没有，会阻塞等待
+        }
+        System.out.println(System.currentTimeMillis() - start);//将近10S的时间
+
+        limiter.tryAcquire();//如果获取不到马上返回false
     }
 }
